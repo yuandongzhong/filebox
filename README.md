@@ -4,8 +4,8 @@ This is an online file sharing system for teams. It is built with **Python and D
 
 ## Screenshots
 
-[Main App](./assests/app.png) \
-[Login Page](./assests/login.png)
+[Main App](./assets/app.png) \
+[Login Page](./assets/login.png)
 
 
 ## Develop
