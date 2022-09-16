@@ -1,0 +1,58 @@
+{% extends 'fileshare/base.html' %}
+
+{% load static %}
+
+{% block header_title %}Share{% endblock %}
+
+{% block javascript %}
+{% comment %} JQUERY FILE UPLOAD SCRIPTS {% endcomment %}
+<script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+
+{% comment %} PHOTOS PAGE SCRIPTS {% endcomment %}
+<script src="{% static 'fileshare/js/upload.js' %}"></script>
+{% endblock %}
+
+{% block file_content %}
+<div class="card card-body bg-light text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+  <i class="fas fa-cloud-upload-alt" style="font-size: 47px;"></i>
+  <h3 class="mt-3">Drag File to Here</h3>
+</div>
+<input id="fileupload" type="file" name="file" style="display: none;" data-url="{%  url 'fileshare:home' %}"
+  data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+<table id="files" class="table table-bordered mt-5 table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope='col'>File Name</th>
+      <th scope='col'>Upload Time</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for team_file in team_files %}
+    <tr>
+      <td><a href="{{ team_file.file.url }}">{{ team_file.filename }}</a></td>
+      <td>{{ team_file.uploaded_at }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">上载中...</h4>
+      </div>
+      <div class="modal-body">
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"
+            style="width: 0%;">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

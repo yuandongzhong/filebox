@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'fileshare:clear_database' %}">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.path }}">
+  <button type="submit" class="btn btn-danger float-right">
+    <i class="fa fa-trash-alt" aria-hidden="true"></i> Clear
+  </button>
+</form>
+<h2 class="pb-2 mt-4 mb-2 border-bottom">
+  Team Files
+  <small>/ {% block header_title %}{% endblock %}</small>
+</h2>
+<div class="row">
+  <div class="col">
+    {% block file_content %}
+    {% endblock %}
+  </div>
+</div>
+{% endblock %}
